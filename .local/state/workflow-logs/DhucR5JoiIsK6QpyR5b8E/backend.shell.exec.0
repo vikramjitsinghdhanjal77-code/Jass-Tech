@@ -1,0 +1,37 @@
+[32mINFO[0m:     Started server process [[36m1715[0m]
+[32mINFO[0m:     Waiting for application startup.
+[31mERROR[0m:    Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/starlette/routing.py", line 732, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/starlette/routing.py", line 608, in __aenter__
+    await self._router.startup()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/starlette/routing.py", line 709, in startup
+    await handler()
+  File "/home/runner/workspace/backend/server.py", line 488, in seed_data
+    admin = await db.users.find_one({"username": ADMIN_USERNAME})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/nix/store/6334pjf6w2q623rgvwi499qaiym1p6yv-python3-3.11.14/lib/python3.11/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pymongo/collection.py", line 1508, in find_one
+    for result in cursor.limit(-1):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pymongo/cursor.py", line 1262, in next
+    if len(self.__data) or self._refresh():
+                           ^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pymongo/cursor.py", line 1153, in _refresh
+    self.__session = self.__collection.database.client._ensure_session()
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pymongo/mongo_client.py", line 1868, in _ensure_session
+    return self.__start_session(True, causal_consistency=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pymongo/mongo_client.py", line 1811, in __start_session
+    self._topology._check_implicit_session_support()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pymongo/topology.py", line 583, in _check_implicit_session_support
+    self._check_session_support()
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pymongo/topology.py", line 599, in _check_session_support
+    self._select_servers_loop(
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/pymongo/topology.py", line 269, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: SSL handshake failed: ac-1dipwxg-shard-00-01.gmctwm5.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1016),SSL handshake failed: ac-1dipwxg-shard-00-00.gmctwm5.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1016),SSL handshake failed: ac-1dipwxg-shard-00-02.gmctwm5.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1016), Timeout: 30s, Topology Description: <TopologyDescription id: 69eb582aed2405abee5d491f, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-1dipwxg-shard-00-00.gmctwm5.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-1dipwxg-shard-00-00.gmctwm5.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1016)')>, <ServerDescription ('ac-1dipwxg-shard-00-01.gmctwm5.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-1dipwxg-shard-00-01.gmctwm5.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1016)')>, <ServerDescription ('ac-1dipwxg-shard-00-02.gmctwm5.mongodb.net', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('SSL handshake failed: ac-1dipwxg-shard-00-02.gmctwm5.mongodb.net:27017: [SSL: TLSV1_ALERT_INTERNAL_ERROR] tlsv1 alert internal error (_ssl.c:1016)')>]>
+
+[31mERROR[0m:    Application startup failed. Exiting.

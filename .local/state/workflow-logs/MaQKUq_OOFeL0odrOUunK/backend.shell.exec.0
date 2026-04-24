@@ -1,0 +1,90 @@
+[32mINFO[0m:     Started server process [[36m2114[0m]
+[32mINFO[0m:     Waiting for application startup.
+2026-04-24 11:58:17,784 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-04-24 11:58:18,089 - server - INFO - Seeded admin user 'admin'
+2026-04-24 11:58:18,158 - server - INFO - Seeded 7 products
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     127.0.0.1:57232 - "[1mGET / HTTP/1.1[0m" [31m404 Not Found[0m
+[32mINFO[0m:     127.0.0.1:57232 - "[1mGET /favicon.ico HTTP/1.1[0m" [31m404 Not Found[0m
+[32mINFO[0m:     127.0.0.1:54100 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:54110 - "[1mPOST /api/auth/login HTTP/1.1[0m" [31m404 Not Found[0m
+[32mINFO[0m:     127.0.0.1:45912 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.5.19:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.5.19:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mPOST /api/register HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/me HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/orders/mine HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/me HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/orders/mine HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/me HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/orders/mine HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.5.19:0 - "[1mPUT /api/admin/orders/e0472afc-230f-4fcc-b01d-0b18be6dc8a4/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.5.19:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.5.19:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products?category=motherboard HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/forgot-password HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.5.19:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/me HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.27:0 - "[1mGET /api/orders/mine HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:57496 - "[1mGET /api/admin/stats HTTP/1.1[0m" [31m401 Unauthorized[0m
+[32mINFO[0m:     127.0.0.1:57512 - "[1mGET /api/admin/orders HTTP/1.1[0m" [31m401 Unauthorized[0m
+[32mINFO[0m:     127.0.0.1:57508 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:41456 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:40430 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:58774 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mPOST /api/login HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.22:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.22:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/products?category=all HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/me HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.22:0 - "[1mGET /api/orders/mine HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.5.17:0 - "[1mGET /api/products HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.3.22:0 - "[1mGET /api/admin/orders HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.84.6.27:0 - "[1mGET /api/admin/stats HTTP/1.1[0m" [32m200 OK[0m

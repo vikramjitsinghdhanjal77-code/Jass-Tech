@@ -1,0 +1,40 @@
+[2K[1G[1myarn run v1.22.22[22m
+[2K[1G[2m$ craco start[22m
+[36mAttempting to bind to HOST environment variable: [33m[1m0.0.0.0[22m[39m[36m[39m
+If this was unintentional, check that you haven't mistakenly set it in your shell.
+Learn more here: [33mhttps://cra.link/advanced-config[39m
+
+(node:628) [DEP0176] DeprecationWarning: fs.F_OK is deprecated, use fs.constants.F_OK instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[HPM] Proxy created: /  -> http://localhost:8000
+(node:628) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(node:628) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+[2J[3J[H[36mStarting the development server...[39m
+[36m[39m
+[2J[3J[H[32mCompiled successfully![39m
+
+You can now view [1mfrontend[22m in the browser.
+
+  [1mLocal:[22m            http://localhost:[1m5000[22m
+  [1mOn Your Network:[22m  http://172.31.95.226:[1m5000[22m
+
+Note that the development build is not optimized.
+To create a production build, use [36myarn build[39m.
+
+webpack compiled [1m[32msuccessfully[39m[22m
+[2J[3J[HCompiling...
+[2J[3J[H[32mCompiled successfully![39m
+
+You can now view [1mfrontend[22m in the browser.
+
+  [1mLocal:[22m            http://localhost:[1m5000[22m
+  [1mOn Your Network:[22m  http://172.31.95.226:[1m5000[22m
+
+Note that the development build is not optimized.
+To create a production build, use [36myarn build[39m.
+
+webpack compiled [1m[32msuccessfully[39m[22m
+(node:628) [DEP0060] DeprecationWarning: The `util._extend` API is deprecated. Please use Object.assign() instead.
+[HPM] Error occurred while proxying request 206264b7-2539-4d90-bda4-0ab41d98567d-00-3rsz3y90i1q8j.sisko.replit.dev/api/login to http://localhost:8000/ [ECONNREFUSED] (https://nodejs.org/api/errors.html#errors_common_system_errors)
+[HPM] Error occurred while proxying request 206264b7-2539-4d90-bda4-0ab41d98567d-00-3rsz3y90i1q8j.sisko.replit.dev/api/login to http://localhost:8000/ [ECONNREFUSED] (https://nodejs.org/api/errors.html#errors_common_system_errors)
+[HPM] Error occurred while proxying request 206264b7-2539-4d90-bda4-0ab41d98567d-00-3rsz3y90i1q8j.sisko.replit.dev/api/login to http://localhost:8000/ [ECONNREFUSED] (https://nodejs.org/api/errors.html#errors_common_system_errors)

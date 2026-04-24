@@ -140,11 +140,13 @@
                 </div>
                 <div class="form-group full">
                     <label>Description</label>
-                    <textarea id="prodDesc" rows="2" required placeholder="Short product description shown on cards"></textarea>
+                    <textarea id="prodDesc" rows="2" required
+                        placeholder="Short product description shown on cards"></textarea>
                 </div>
                 <div class="form-group full">
                     <label>Specs (one per line)</label>
-                    <textarea id="prodSpecs" rows="3" placeholder="Boost Clock: 2.5 GHz&#10;Memory: 24GB&#10;TDP: 450W"></textarea>
+                    <textarea id="prodSpecs" rows="3"
+                        placeholder="Boost Clock: 2.5 GHz&#10;Memory: 24GB&#10;TDP: 450W"></textarea>
                 </div>
                 <div class="form-actions full">
                     <button type="button" class="btn btn-secondary" id="cancelProductBtn">Cancel</button>
@@ -210,7 +212,7 @@
                     <td>${JT.fmtINR(p.price)}</td>
                     <td><span class="${p.stock < 5 ? "low-stock" : ""}">${p.stock}</span></td>
                     <td class="action-cell">
-                        <button class="btn btn-small btn-secondary" data-edit="${p.id}">Edit</button>
+                        <button class="btn btn-small btn-green" data-edit="${p.id}">Edit</button>
                         <button class="btn btn-small btn-danger" data-del="${p.id}">Delete</button>
                     </td>
                 </tr>
