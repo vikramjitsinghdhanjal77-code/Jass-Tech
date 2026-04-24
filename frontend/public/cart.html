@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
@@ -17,130 +16,41 @@
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="products.html">Products</a></li>
-                    <li><a href="cart.html" class="active">Cart <span class="cart-badge">3</span></a></li>
+                    <li><a href="cart.html" class="active">Cart <span class="cart-badge">0</span></a></li>
                     <li><a href="login.html" class="btn-nav">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Cart Section -->
     <section class="cart-section">
         <div class="container">
             <h1 class="page-title">Shopping Cart</h1>
 
-            <div class="cart-layout">
-                <!-- Cart Items -->
-                <div class="cart-items">
-                    <!-- Item 1 -->
-                    <div class="cart-item">
-                        <div class="cart-item-image">
-                            <div class="placeholder-img-cart">RTX 4090</div>
-                        </div>
-                        <div class="cart-item-details">
-                            <h3>NVIDIA GeForce RTX 4090</h3>
-                            <p class="cart-item-category">Graphics Card</p>
-                            <p class="cart-item-specs">24GB GDDR6X • Ray Tracing</p>
-                        </div>
-                        <div class="cart-item-quantity">
-                            <label>Qty:</label>
-                            <select class="quantity-select">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div class="cart-item-price">
-                            <p class="price">₹1,599</p>
-                        </div>
-                        <div class="cart-item-remove">
-                            <button class="btn-remove" title="Remove item">×</button>
-                        </div>
-                    </div>
+            <div class="cart-layout" id="cartLayout">
+                <div class="cart-items" id="cartItems"></div>
 
-                    <!-- Item 2 -->
-                    <div class="cart-item">
-                        <div class="cart-item-image">
-                            <div class="placeholder-img-cart">Ryzen 9</div>
-                        </div>
-                        <div class="cart-item-details">
-                            <h3>AMD Ryzen 9 7950X</h3>
-                            <p class="cart-item-category">Processor</p>
-                            <p class="cart-item-specs">16 Cores • 5.7 GHz</p>
-                        </div>
-                        <div class="cart-item-quantity">
-                            <label>Qty:</label>
-                            <select class="quantity-select">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div class="cart-item-price">
-                            <p class="price">₹699</p>
-                        </div>
-                        <div class="cart-item-remove">
-                            <button class="btn-remove" title="Remove item">×</button>
-                        </div>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="cart-item">
-                        <div class="cart-item-image">
-                            <div class="placeholder-img-cart">DDR5</div>
-                        </div>
-                        <div class="cart-item-details">
-                            <h3>Corsair Vengeance DDR5 32GB</h3>
-                            <p class="cart-item-category">Memory (RAM)</p>
-                            <p class="cart-item-specs">6000MHz • RGB Lighting</p>
-                        </div>
-                        <div class="cart-item-quantity">
-                            <label>Qty:</label>
-                            <select class="quantity-select">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div class="cart-item-price">
-                            <p class="price">₹199</p>
-                        </div>
-                        <div class="cart-item-remove">
-                            <button class="btn-remove" title="Remove item">×</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cart Summary -->
                 <div class="cart-summary">
                     <h2>Order Summary</h2>
-
                     <div class="summary-row">
-                        <span>Subtotal (3 items)</span>
-                        <span>₹2,497</span>
+                        <span>Subtotal (<span id="itemCount">0</span> items)</span>
+                        <span id="subtotal">₹0</span>
                     </div>
-
                     <div class="summary-row">
                         <span>Shipping</span>
                         <span class="free">FREE</span>
                     </div>
-
                     <div class="summary-row">
-                        <span>Tax (estimated)</span>
-                        <span>₹249.70</span>
+                        <span>Tax (10%)</span>
+                        <span id="tax">₹0</span>
                     </div>
-
                     <div class="summary-divider"></div>
-
                     <div class="summary-row total">
                         <span>Total</span>
-                        <span>₹2,746.70</span>
+                        <span id="total">₹0</span>
                     </div>
 
-                    <form action="checkout.html" method="get">
-                        <button type="submit" class="btn btn-primary btn-full">Proceed to Checkout</button>
-                    </form>
-
+                    <button id="checkoutBtn" class="btn btn-primary btn-full">Proceed to Checkout</button>
                     <a href="products.html" class="continue-shopping">← Continue Shopping</a>
 
                     <div class="trust-badges">
@@ -150,37 +60,93 @@
                     </div>
                 </div>
             </div>
+
+            <div id="emptyCart" class="empty-state" style="display:none;">
+                <h2>Your cart is empty</h2>
+                <p>Looks like you haven't added anything yet.</p>
+                <a href="products.html" class="btn btn-primary">Browse Products</a>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>JASS TECHNOLOGIES</h4>
-                    <p>Your trusted source for premium computer hardware.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="cart.html">Cart</a></li>
-                        <li><a href="login.html">Login</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>Email: support@JASS TECHNOLOGIES.com</p>
-                    <p>Phone: 1-800-JASS TECHNOLOGIES</p>
-                </div>
-            </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 JASS TECHNOLOGIES. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        function render() {
+            const items = JT.Cart.get();
+            const layout = document.getElementById("cartLayout");
+            const empty = document.getElementById("emptyCart");
+            if (!items.length) {
+                layout.style.display = "none";
+                empty.style.display = "block";
+                return;
+            }
+            layout.style.display = "";
+            empty.style.display = "none";
+
+            const itemsEl = document.getElementById("cartItems");
+            itemsEl.innerHTML = items.map((it) => `
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="${it.image}" alt="${it.name}"
+                             onerror="this.onerror=null;this.src='https://placehold.co/120x120/1e3a8a/ffffff?text=${encodeURIComponent(it.name)}'">
+                    </div>
+                    <div class="cart-item-details">
+                        <h3>${it.name}</h3>
+                        <p class="cart-item-category">${(it.category || "").toUpperCase()}</p>
+                    </div>
+                    <div class="cart-item-quantity">
+                        <label>Qty:</label>
+                        <input type="number" min="1" value="${it.quantity}" data-id="${it.product_id}" class="qty-input">
+                    </div>
+                    <div class="cart-item-price">
+                        <p class="price">${JT.fmtINR(it.price * it.quantity)}</p>
+                    </div>
+                    <div class="cart-item-remove">
+                        <button class="btn-remove" data-rm="${it.product_id}" title="Remove">×</button>
+                    </div>
+                </div>
+            `).join("");
+
+            const subtotal = JT.Cart.subtotal();
+            const tax = subtotal * 0.10;
+            document.getElementById("itemCount").textContent = JT.Cart.count();
+            document.getElementById("subtotal").textContent = JT.fmtINR(subtotal);
+            document.getElementById("tax").textContent = JT.fmtINR(tax);
+            document.getElementById("total").textContent = JT.fmtINR(subtotal + tax);
+
+            itemsEl.querySelectorAll(".qty-input").forEach((inp) => {
+                inp.addEventListener("change", () => {
+                    JT.Cart.setQty(inp.dataset.id, parseInt(inp.value || "1", 10));
+                    render();
+                });
+            });
+            itemsEl.querySelectorAll("[data-rm]").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    JT.Cart.remove(btn.dataset.rm);
+                    render();
+                });
+            });
+        }
+
+        document.getElementById("checkoutBtn").addEventListener("click", () => {
+            if (!JT.Auth.isLoggedIn()) {
+                alert("Please log in to checkout.");
+                window.location.href = "login.html";
+                return;
+            }
+            window.location.href = "checkout.html";
+        });
+
+        render();
+    </script>
 </body>
 
 </html>

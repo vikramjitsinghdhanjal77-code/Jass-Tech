@@ -9,8 +9,6 @@
 </head>
 
 <body>
-    <div id="root"></div>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
@@ -18,14 +16,13 @@
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="products.html">Products</a></li>
-                    <li><a href="cart.html">Cart <span class="cart-badge" id="cartCount">0</span></a></li>
+                    <li><a href="cart.html">Cart <span class="cart-badge">0</span></a></li>
                     <li><a href="login.html" class="btn-nav">Login</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -39,7 +36,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features" id="features">
         <div class="container">
             <h2 class="section-title">Why Choose JASS TECHNOLOGIES?</h2>
@@ -68,45 +64,11 @@
         </div>
     </section>
 
-    <!-- Popular Products -->
     <section class="popular-products">
         <div class="container">
             <h2 class="section-title">Popular Components</h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="product-badge">Top Seller</div>
-                        <div class="placeholder-img">RTX 4090</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>NVIDIA RTX 4090</h3>
-                        <p class="product-desc">24GB GDDR6X, Ray Tracing</p>
-                        <p class="product-price">₹294999</p>
-                        <a href="products.html" class="btn btn-small">View Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="placeholder-img">Ryzen 9</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>AMD Ryzen 9 7950X</h3>
-                        <p class="product-desc">16 cores, 32 threads, 5.7 GHz</p>
-                        <p class="product-price">₹51507</p>
-                        <a href="products.html" class="btn btn-small">View Details</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-image">
-                        <div class="placeholder-img">DDR5</div>
-                    </div>
-                    <div class="product-info">
-                        <h3>Corsair DDR5 32GB</h3>
-                        <p class="product-desc">6000MHz, RGB, Dual Kit</p>
-                        <p class="product-price">₹47199</p>
-                        <a href="products.html" class="btn btn-small">View Details</a>
-                    </div>
-                </div>
+            <div class="product-grid" id="featuredGrid">
+                <p class="loading">Loading products…</p>
             </div>
             <div class="text-center" style="margin-top: 40px;">
                 <a href="products.html" class="btn btn-primary">View All Products</a>
@@ -114,19 +76,18 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h4>JASS TECHNOLOGIES</h4>
-                    <p>Your trusted source for premium computer hardware and accessories.Contact us for any inquiries
+                    <p>Your trusted source for premium computer hardware and accessories. Contact us for any inquiries
                         and support.</p>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="index.html"> Home</a></li>
+                        <li><a href="index.html">Home</a></li>
                         <li><a href="products.html">Products</a></li>
                         <li><a href="cart.html">Cart</a></li>
                         <li><a href="login.html">Login</a></li>
@@ -135,14 +96,46 @@
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <p>Email: jasstechnologies21@gmail.com</p>
-                    <p> Phone:+91 7973719198 </p>
+                    <p>Phone: +91 7973719198</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 JASS TECHNOLOGIES. All rights reserved.</p>
+                <p>&copy; 2025 JASS TECHNOLOGIES. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        (async () => {
+            const grid = document.getElementById("featuredGrid");
+            const res = await JT.api("/products");
+            if (!res.success) {
+                grid.innerHTML = `<p class="loading">Failed to load products.</p>`;
+                return;
+            }
+            const featured = res.products.slice(0, 3);
+            if (!featured.length) {
+                grid.innerHTML = `<p class="loading">No products yet.</p>`;
+                return;
+            }
+            grid.innerHTML = featured.map((p) => `
+                <div class="product-card">
+                    <div class="product-image">
+                        ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ""}
+                        <img src="${p.image}" alt="${p.name}"
+                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/1e3a8a/ffffff?text=${encodeURIComponent(p.name)}'">
+                    </div>
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <p class="product-desc">${p.description}</p>
+                        <p class="product-price">${JT.fmtINR(p.price)}</p>
+                        <a href="products.html" class="btn btn-small">View Details</a>
+                    </div>
+                </div>
+            `).join("");
+        })();
+    </script>
 </body>
 
 </html>

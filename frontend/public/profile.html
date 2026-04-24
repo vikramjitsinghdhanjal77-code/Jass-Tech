@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - JASS TECHNOLOGIES</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">JASS TECHNOLOGIES</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="cart.html">Cart <span class="cart-badge">0</span></a></li>
+                    <li><a href="login.html" class="btn-nav">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="profile-section">
+        <div class="container">
+            <h1 class="page-title">My Account</h1>
+
+            <div class="profile-grid">
+                <aside class="profile-side">
+                    <button class="profile-tab active" data-tab="profile">Profile</button>
+                    <button class="profile-tab" data-tab="password">Change Password</button>
+                    <button class="profile-tab" data-tab="orders">Order History</button>
+                </aside>
+
+                <div class="profile-main">
+                    <!-- Profile pane -->
+                    <div class="profile-pane active" id="paneProfile">
+                        <h2>Profile Details</h2>
+                        <form id="profileForm" class="form-grid">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input id="pfUsername" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input id="pfFullName">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input id="pfEmail" type="email">
+                            </div>
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input id="pfPhone">
+                            </div>
+                            <div class="form-group full">
+                                <label>Address</label>
+                                <input id="pfAddress">
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <input id="pfCity">
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                <input id="pfState">
+                            </div>
+                            <div class="form-group">
+                                <label>ZIP / PIN Code</label>
+                                <input id="pfZip">
+                            </div>
+                            <div class="form-actions full">
+                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                <p class="form-msg" id="profileMsg"></p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Password pane -->
+                    <div class="profile-pane" id="panePassword">
+                        <h2>Change Password</h2>
+                        <form id="passwordForm" class="form-grid">
+                            <div class="form-group full">
+                                <label>Current Password</label>
+                                <input id="pwCurrent" type="password" required minlength="6">
+                            </div>
+                            <div class="form-group full">
+                                <label>New Password</label>
+                                <input id="pwNew" type="password" required minlength="6">
+                            </div>
+                            <div class="form-actions full">
+                                <button class="btn btn-primary" type="submit">Update Password</button>
+                                <p class="form-msg" id="pwMsg"></p>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Orders pane -->
+                    <div class="profile-pane" id="paneOrders">
+                        <h2>Order History</h2>
+                        <div id="ordersList"><p class="loading">Loading…</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 JASS TECHNOLOGIES. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        if (!JT.Auth.isLoggedIn()) {
+            window.location.href = "login.html";
+        }
+
+        document.querySelectorAll(".profile-tab").forEach((b) =>
+            b.addEventListener("click", () => {
+                document.querySelectorAll(".profile-tab").forEach((x) => x.classList.toggle("active", x === b));
+                document.querySelectorAll(".profile-pane").forEach((p) => {
+                    p.classList.toggle("active", p.id === "pane" + b.dataset.tab[0].toUpperCase() + b.dataset.tab.slice(1));
+                });
+            })
+        );
+
+        async function loadProfile() {
+            const res = await JT.api("/me", { auth: true });
+            if (!res.success) return;
+            const u = res.user;
+            document.getElementById("pfUsername").value = u.username || "";
+            document.getElementById("pfFullName").value = u.full_name || "";
+            document.getElementById("pfEmail").value = u.email || "";
+            document.getElementById("pfPhone").value = u.phone || "";
+            document.getElementById("pfAddress").value = u.address || "";
+            document.getElementById("pfCity").value = u.city || "";
+            document.getElementById("pfState").value = u.state || "";
+            document.getElementById("pfZip").value = u.zip_code || "";
+        }
+
+        document.getElementById("profileForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const body = {
+                full_name: document.getElementById("pfFullName").value.trim(),
+                email: document.getElementById("pfEmail").value.trim(),
+                phone: document.getElementById("pfPhone").value.trim(),
+                address: document.getElementById("pfAddress").value.trim(),
+                city: document.getElementById("pfCity").value.trim(),
+                state: document.getElementById("pfState").value.trim(),
+                zip_code: document.getElementById("pfZip").value.trim(),
+            };
+            const res = await JT.api("/me", { method: "PUT", auth: true, body });
+            const m = document.getElementById("profileMsg");
+            m.className = "form-msg " + (res.success ? "ok" : "err");
+            m.textContent = res.success ? "Profile saved." : (res.message || "Could not save");
+        });
+
+        document.getElementById("passwordForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const body = {
+                current_password: document.getElementById("pwCurrent").value,
+                new_password: document.getElementById("pwNew").value,
+            };
+            const res = await JT.api("/me/change-password", { method: "POST", auth: true, body });
+            const m = document.getElementById("pwMsg");
+            m.className = "form-msg " + (res.success ? "ok" : "err");
+            m.textContent = res.success ? "Password updated." : (res.message || "Could not update");
+            if (res.success) e.target.reset();
+        });
+
+        async function loadOrders() {
+            const wrap = document.getElementById("ordersList");
+            const res = await JT.api("/orders/mine", { auth: true });
+            if (!res.success) {
+                wrap.innerHTML = `<p class="loading">Could not load orders.</p>`;
+                return;
+            }
+            if (!res.orders.length) {
+                wrap.innerHTML = `<p class="loading">No orders yet.</p>`;
+                return;
+            }
+            wrap.innerHTML = res.orders.map((o) => `
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div>
+                            <strong>#${o.order_number}</strong>
+                            <span class="order-status ${o.status}">${o.status}</span>
+                        </div>
+                        <div class="order-meta">
+                            <span>${JT.fmtDate(o.created_at)}</span>
+                            <span class="order-total">${JT.fmtINR(o.total)}</span>
+                        </div>
+                    </div>
+                    <div class="order-items">
+                        ${o.items.map((i) => `
+                            <div class="order-item-row">
+                                <span>${i.name}</span>
+                                <span>×${i.quantity}</span>
+                                <span>${JT.fmtINR(i.price * i.quantity)}</span>
+                            </div>
+                        `).join("")}
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        loadProfile();
+        loadOrders();
+    </script>
+</body>
+
+</html>

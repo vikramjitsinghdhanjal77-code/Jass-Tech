@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
@@ -24,42 +23,80 @@
         </div>
     </nav>
 
-    <!-- Login Section -->
     <section class="login-section">
         <div class="container">
             <div class="login-container">
                 <div class="login-card">
-                    <h1 class="login-title">Welcome Back</h1>
-                    <p class="login-subtitle">Sign in to your JASS TECHNOLOGIES account</p>
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Login</button>
+                        <button class="auth-tab" data-tab="signup">Sign Up</button>
+                        <button class="auth-tab" data-tab="forgot">Forgot</button>
+                    </div>
 
-                    <form class="login-form">
+                    <!-- LOGIN -->
+                    <form class="login-form auth-pane active" id="paneLogin">
+                        <h2 class="login-title">Welcome Back</h2>
+                        <p class="login-subtitle">Sign in to your JASS TECHNOLOGIES account</p>
                         <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username" placeholder="Enter your username" required
-                                minlength="3" pattern="[a-zA-Z0-9_]+"
-                                title="Username must contain only letters, numbers, and underscores">
+                            <label for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" required minlength="3">
                         </div>
-
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="Enter your password"
-                                required minlength="6" title="Password must be at least 6 characters">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required minlength="6">
                         </div>
-
                         <div class="form-options">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="remember">
-                                <span>Remember me</span>
-                            </label>
-                            <a href="#" class="forgot-link">Forgot password?</a>
+                            <label class="checkbox-label"><input type="checkbox"> <span>Remember me</span></label>
+                            <a href="#" class="forgot-link" data-tab="forgot">Forgot password?</a>
                         </div>
-
                         <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                        <p class="form-msg" id="loginMsg"></p>
+                        <div class="admin-hint">
+                            <strong>Admin login:</strong> username <code>admin</code> · password <code>admin123</code>
+                        </div>
                     </form>
 
-                    <div class="login-footer">
-                        <p>Don't have an account? <a href="#" class="signup-link">Sign up</a></p>
-                    </div>
+                    <!-- SIGNUP -->
+                    <form class="login-form auth-pane" id="paneSignup">
+                        <h2 class="login-title">Create an Account</h2>
+                        <p class="login-subtitle">Join the JASS TECHNOLOGIES community</p>
+                        <div class="form-group">
+                            <label for="signupFullName">Full Name</label>
+                            <input type="text" id="signupFullName">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupUsername">Username</label>
+                            <input type="text" id="signupUsername" required minlength="3"
+                                pattern="[a-zA-Z0-9_]+"
+                                title="Letters, numbers and underscores only">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" required minlength="6">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                        <p class="form-msg" id="signupMsg"></p>
+                    </form>
+
+                    <!-- FORGOT -->
+                    <form class="login-form auth-pane" id="paneForgot">
+                        <h2 class="login-title">Reset Password</h2>
+                        <p class="login-subtitle">Enter your username and choose a new password</p>
+                        <div class="form-group">
+                            <label for="forgotUsername">Username</label>
+                            <input type="text" id="forgotUsername" required minlength="3">
+                        </div>
+                        <div class="form-group">
+                            <label for="forgotPassword">New Password</label>
+                            <input type="password" id="forgotPassword" required minlength="6">
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Reset Password</button>
+                        <p class="form-msg" id="forgotMsg"></p>
+                    </form>
                 </div>
 
                 <div class="login-info">
@@ -75,59 +112,86 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>JASS TECHNOLOGIES</h4>
-                    <p>Your trusted source for premium computer hardware.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="cart.html">Cart</a></li>
-                        <li><a href="login.html">Login</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>Email: support@JASS TECHNOLOGIES.com</p>
-                    <p>Phone: 1-800-JASS TECHNOLOGIES</p>
-                </div>
-            </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 JASS TECHNOLOGIES. All rights reserved.</p>
             </div>
         </div>
     </footer>
-</body>
 
-<script>
-    document.querySelector('.login-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
+    <script src="js/api.js"></script>
+    <script>
+        function switchTab(name) {
+            document.querySelectorAll(".auth-tab").forEach((b) =>
+                b.classList.toggle("active", b.dataset.tab === name)
+            );
+            document.querySelectorAll(".auth-pane").forEach((p) =>
+                p.classList.toggle("active", p.id === "pane" + name[0].toUpperCase() + name.slice(1))
+            );
+        }
+        document.querySelectorAll(".auth-tab, .forgot-link").forEach((b) =>
+            b.addEventListener("click", (e) => {
+                if (b.tagName === "A") e.preventDefault();
+                switchTab(b.dataset.tab);
+            })
+        );
 
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
+        function setMsg(id, text, ok = false) {
+            const el = document.getElementById(id);
+            el.textContent = text;
+            el.className = "form-msg " + (ok ? "ok" : "err");
+        }
 
-        const response = await fetch('http://localhost:8000/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
+        document.getElementById("paneLogin").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const username = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value;
+            const res = await JT.api("/login", { method: "POST", body: { username, password } });
+            if (res.success) {
+                JT.Auth.set(res.token, res.username, res.role);
+                setMsg("loginMsg", "Login successful, redirecting…", true);
+                setTimeout(() => {
+                    window.location.href = res.role === "admin" ? "admin.html" : "index.html";
+                }, 600);
+            } else {
+                setMsg("loginMsg", res.message || "Login failed");
+            }
         });
 
-        const result = await response.json();
+        document.getElementById("paneSignup").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const body = {
+                username: document.getElementById("signupUsername").value.trim(),
+                password: document.getElementById("signupPassword").value,
+                email: document.getElementById("signupEmail").value.trim(),
+                full_name: document.getElementById("signupFullName").value.trim(),
+            };
+            const res = await JT.api("/register", { method: "POST", body });
+            if (res.success) {
+                JT.Auth.set(res.token, res.username, res.role);
+                setMsg("signupMsg", "Account created. Redirecting…", true);
+                setTimeout(() => (window.location.href = "index.html"), 700);
+            } else {
+                setMsg("signupMsg", res.message || "Sign up failed");
+            }
+        });
 
-        if (result.success) {
-            alert("Login successful!");
-            // window.location.href = "index.html";
-        } else {
-            alert(result.message);
-        }
-    });
-</script>
-
+        document.getElementById("paneForgot").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const body = {
+                username: document.getElementById("forgotUsername").value.trim(),
+                new_password: document.getElementById("forgotPassword").value,
+            };
+            const res = await JT.api("/forgot-password", { method: "POST", body });
+            if (res.success) {
+                setMsg("forgotMsg", "Password reset. You can now log in.", true);
+                setTimeout(() => switchTab("login"), 800);
+            } else {
+                setMsg("forgotMsg", res.message || "Reset failed");
+            }
+        });
+    </script>
+</body>
 
 </html>

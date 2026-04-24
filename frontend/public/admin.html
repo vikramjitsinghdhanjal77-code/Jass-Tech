@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - JASS TECHNOLOGIES</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">JASS TECHNOLOGIES <span class="admin-pill">Admin</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Storefront</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="login.html" class="btn-nav">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="admin-section">
+        <div class="container">
+            <h1 class="page-title">Admin Dashboard</h1>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Revenue</div>
+                    <div class="stat-value" id="statRevenue">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Orders</div>
+                    <div class="stat-value" id="statOrders">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Products</div>
+                    <div class="stat-value" id="statProducts">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Customers</div>
+                    <div class="stat-value" id="statUsers">—</div>
+                </div>
+                <div class="stat-card warn">
+                    <div class="stat-label">Low Stock</div>
+                    <div class="stat-value" id="statLow">—</div>
+                </div>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="admin-tab active" data-tab="products">Products</button>
+                <button class="admin-tab" data-tab="orders">Orders</button>
+            </div>
+
+            <!-- Products tab -->
+            <div class="admin-pane active" id="paneProducts">
+                <div class="admin-pane-head">
+                    <h2>Product Management</h2>
+                    <button class="btn btn-primary" id="newProductBtn">+ Add Product</button>
+                </div>
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Orders tab -->
+            <div class="admin-pane" id="paneOrders">
+                <h2>All Orders</h2>
+                <div id="adminOrders"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product modal -->
+    <div id="productModal" class="modal" style="display:none;">
+        <div class="modal-content modal-form">
+            <h2 id="modalTitle">Add Product</h2>
+            <form id="productForm" class="form-grid">
+                <input type="hidden" id="prodId">
+                <div class="form-group full">
+                    <label>Name</label>
+                    <input id="prodName" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="prodCategory" required>
+                        <option value="gpu">Graphics Card</option>
+                        <option value="cpu">Processor</option>
+                        <option value="ram">Memory (RAM)</option>
+                        <option value="motherboard">Motherboard</option>
+                        <option value="storage">Storage</option>
+                        <option value="psu">Power Supply</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Badge (optional)</label>
+                    <input id="prodBadge" placeholder="e.g. New, Top Seller">
+                </div>
+                <div class="form-group">
+                    <label>Price (₹)</label>
+                    <input id="prodPrice" type="number" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Stock</label>
+                    <input id="prodStock" type="number" min="0" required>
+                </div>
+                <div class="form-group full">
+                    <label>Image URL</label>
+                    <input id="prodImage" placeholder="https://...">
+                </div>
+                <div class="form-group full">
+                    <label>Description</label>
+                    <textarea id="prodDesc" rows="2" required></textarea>
+                </div>
+                <div class="form-group full">
+                    <label>Specs (one per line)</label>
+                    <textarea id="prodSpecs" rows="3" placeholder="Boost Clock: 2.5 GHz&#10;Memory: 24GB"></textarea>
+                </div>
+                <div class="form-actions full" style="display:flex;gap:12px;justify-content:flex-end;">
+                    <button type="button" class="btn btn-secondary" id="cancelProductBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 JASS TECHNOLOGIES. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        if (!JT.Auth.isLoggedIn() || !JT.Auth.isAdmin()) {
+            alert("Admin access only.");
+            window.location.href = "login.html";
+        }
+
+        document.querySelectorAll(".admin-tab").forEach((b) =>
+            b.addEventListener("click", () => {
+                document.querySelectorAll(".admin-tab").forEach((x) => x.classList.toggle("active", x === b));
+                document.querySelectorAll(".admin-pane").forEach((p) =>
+                    p.classList.toggle("active", p.id === "pane" + b.dataset.tab[0].toUpperCase() + b.dataset.tab.slice(1))
+                );
+            })
+        );
+
+        async function loadStats() {
+            const res = await JT.api("/admin/stats", { auth: true });
+            if (!res.success) return;
+            document.getElementById("statRevenue").textContent = JT.fmtINR(res.revenue);
+            document.getElementById("statOrders").textContent = res.orders;
+            document.getElementById("statProducts").textContent = res.products;
+            document.getElementById("statUsers").textContent = res.users;
+            document.getElementById("statLow").textContent = res.low_stock;
+        }
+
+        async function loadProducts() {
+            const res = await JT.api("/products");
+            if (!res.success) return;
+            const tbody = document.getElementById("productsTbody");
+            tbody.innerHTML = res.products.map((p) => `
+                <tr>
+                    <td><img src="${p.image}" alt="${p.name}" class="thumb"
+                        onerror="this.onerror=null;this.src='https://placehold.co/60x60/1e3a8a/ffffff?text=•'"></td>
+                    <td>${p.name}</td>
+                    <td>${p.category}</td>
+                    <td>${JT.fmtINR(p.price)}</td>
+                    <td><span class="${p.stock < 5 ? "low-stock" : ""}">${p.stock}</span></td>
+                    <td>
+                        <button class="btn btn-small btn-secondary" data-edit='${JSON.stringify(p).replace(/'/g, "&#39;")}'>Edit</button>
+                        <button class="btn btn-small" style="background:#ef4444;color:#fff;" data-del="${p.id}">Delete</button>
+                    </td>
+                </tr>
+            `).join("");
+            tbody.querySelectorAll("[data-edit]").forEach((b) =>
+                b.addEventListener("click", () => openModal(JSON.parse(b.dataset.edit)))
+            );
+            tbody.querySelectorAll("[data-del]").forEach((b) =>
+                b.addEventListener("click", async () => {
+                    if (!confirm("Delete this product?")) return;
+                    const r = await JT.api("/products/" + b.dataset.del, { method: "DELETE", auth: true });
+                    if (r.success) { loadProducts(); loadStats(); }
+                    else alert(r.message || "Delete failed");
+                })
+            );
+        }
+
+        function openModal(p) {
+            document.getElementById("productModal").style.display = "flex";
+            document.getElementById("modalTitle").textContent = p ? "Edit Product" : "Add Product";
+            document.getElementById("prodId").value = p ? p.id : "";
+            document.getElementById("prodName").value = p ? p.name : "";
+            document.getElementById("prodCategory").value = p ? p.category : "gpu";
+            document.getElementById("prodBadge").value = p ? (p.badge || "") : "";
+            document.getElementById("prodPrice").value = p ? p.price : "";
+            document.getElementById("prodStock").value = p ? p.stock : 0;
+            document.getElementById("prodImage").value = p ? (p.image || "") : "";
+            document.getElementById("prodDesc").value = p ? p.description : "";
+            document.getElementById("prodSpecs").value = p ? (p.specs || []).join("\n") : "";
+        }
+        function closeModal() {
+            document.getElementById("productModal").style.display = "none";
+        }
+        document.getElementById("newProductBtn").addEventListener("click", () => openModal(null));
+        document.getElementById("cancelProductBtn").addEventListener("click", closeModal);
+
+        document.getElementById("productForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("prodId").value;
+            const body = {
+                name: document.getElementById("prodName").value.trim(),
+                category: document.getElementById("prodCategory").value,
+                badge: document.getElementById("prodBadge").value.trim() || null,
+                price: parseFloat(document.getElementById("prodPrice").value),
+                stock: parseInt(document.getElementById("prodStock").value, 10),
+                image: document.getElementById("prodImage").value.trim(),
+                description: document.getElementById("prodDesc").value.trim(),
+                specs: document.getElementById("prodSpecs").value
+                    .split("\n").map((s) => s.trim()).filter(Boolean),
+            };
+            const res = id
+                ? await JT.api("/products/" + id, { method: "PUT", auth: true, body })
+                : await JT.api("/products", { method: "POST", auth: true, body });
+            if (res.success) {
+                closeModal();
+                loadProducts();
+                loadStats();
+            } else {
+                alert(res.message || "Save failed");
+            }
+        });
+
+        async function loadOrders() {
+            const wrap = document.getElementById("adminOrders");
+            const res = await JT.api("/admin/orders", { auth: true });
+            if (!res.success) {
+                wrap.innerHTML = `<p class="loading">Could not load orders.</p>`;
+                return;
+            }
+            if (!res.orders.length) {
+                wrap.innerHTML = `<p class="loading">No orders yet.</p>`;
+                return;
+            }
+            const STATUSES = ["pending", "shipped", "delivered", "cancelled"];
+            wrap.innerHTML = res.orders.map((o) => `
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div>
+                            <strong>#${o.order_number}</strong>
+                            <span class="order-status ${o.status}">${o.status}</span>
+                            <span class="order-user">@${o.username}</span>
+                        </div>
+                        <div class="order-meta">
+                            <span>${JT.fmtDate(o.created_at)}</span>
+                            <span class="order-total">${JT.fmtINR(o.total)}</span>
+                            <select data-status="${o.id}">
+                                ${STATUSES.map((s) => `<option value="${s}" ${s === o.status ? "selected" : ""}>${s}</option>`).join("")}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="order-items">
+                        ${o.items.map((i) => `
+                            <div class="order-item-row">
+                                <span>${i.name}</span>
+                                <span>×${i.quantity}</span>
+                                <span>${JT.fmtINR(i.price * i.quantity)}</span>
+                            </div>
+                        `).join("")}
+                    </div>
+                    <div class="order-shipping">
+                        Ship to: ${o.shipping.first_name || ""} ${o.shipping.last_name || ""},
+                        ${o.shipping.address || ""}, ${o.shipping.city || ""}, ${o.shipping.state || ""} ${o.shipping.zip_code || ""}
+                        · ${o.shipping.phone || ""}
+                    </div>
+                </div>
+            `).join("");
+
+            wrap.querySelectorAll("select[data-status]").forEach((sel) =>
+                sel.addEventListener("change", async () => {
+                    const r = await JT.api("/admin/orders/" + sel.dataset.status + "/status", {
+                        method: "PUT", auth: true, body: { status: sel.value }
+                    });
+                    if (!r.success) alert(r.message || "Update failed");
+                    loadStats();
+                })
+            );
+        }
+
+        loadStats();
+        loadProducts();
+        loadOrders();
+    </script>
+</body>
+
+</html>
