@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - JASS TECHNOLOGIES Hardware</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">JASS TECHNOLOGIES</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html" class="active">Products</a></li>
+                    <li><a href="cart.html">Cart <span class="cart-badge" id="cartCount">0</span></a></li>
+                    <li><a href="login.html" class="btn-nav">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search and Filter Section -->
+    <section class="search-section">
+        <div class="container">
+            <h1 class="page-title">Hardware Components</h1>
+            <form class="search-form" method="get">
+                <div class="search-bar">
+                    <input type="search" name="search" placeholder="Search for products..." class="search-input"
+                        list="product-suggestions">
+                    <datalist id="product-suggestions">
+                        <option value="Graphics Card">
+                        <option value="Processor">
+                        <option value="RAM">
+                        <option value="Motherboard">
+                        <option value="SSD">
+                        <option value="Power Supply">
+                    </datalist>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <select name="category" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="gpu">Graphics Cards</option>
+                        <option value="cpu">Processors</option>
+                        <option value="ram">Memory (RAM)</option>
+                        <option value="motherboard">Motherboards</option>
+                        <option value="storage">Storage</option>
+                        <option value="psu">Power Supplies</option>
+                    </select>
+
+                    <label>Sort By:</label>
+                    <select name="sort" class="filter-select">
+                        <option value="popular">Most Popular</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="newest">Newest First</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+        <div class="container">
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card-full">
+                    <div class="product-image-full">
+                        <div class="product-badge new">New</div>
+                        <div class="placeholder-img-large">RTX 4090</div>
+                    </div>
+                    <div class="product-details">
+                        <h3>NVIDIA GeForce RTX 4090</h3>
+                        <p class="product-category">Graphics Card</p>
+                        <p class="product-desc">24GB GDDR6X, 16384 CUDA Cores, Ray Tracing, DLSS 3.0</p>
+                        <ul class="product-specs">
+                            <li>• Boost Clock: 2.52 GHz</li>
+                            <li>• Memory: 24GB GDDR6X</li>
+                            <li>• Power: 450W TDP</li>
+                        </ul>
+                        <div class="product-footer">
+                            <span class="product-price-large">₹294999</span>
+                            <form action="cart.html" method="get">
+                                <input type="hidden" name="product" value="RTX 4090">
+                                <input type="hidden" name="price" value="₹1599">
+                                <button type="submit" class="btn btn-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card-full">
+                    <div class="product-image-full">
+                        <div class="product-badge">Best Seller</div>
+                        <div class="placeholder-img-large">Ryzen 9</div>
+                    </div>
+                    <div class="product-details">
+                        <h3>AMD Ryzen 9 7950X</h3>
+                        <p class="product-category">Processor</p>
+                        <p class="product-desc">16 Cores, 32 Threads, 5.7 GHz Max Boost, AM5 Socket</p>
+                        <ul class="product-specs">
+                            <li>• Base Clock: 4.5 GHz</li>
+                            <li>• Cache: 80MB</li>
+                            <li>• TDP: 170W</li>
+                        </ul>
+                        <div class="product-footer">
+                            <span class="product-price-large">₹51507</span>
+                            <form action="cart.html" method="get">
+                                <input type="hidden" name="product" value="Ryzen 9 7950X">
+                                <input type="hidden" name="price" value="699">
+                                <button type="submit" class="btn btn-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card-full">
+                    <div class="product-image-full">
+                        <div class="placeholder-img-large">DDR5 RAM</div>
+                    </div>
+                    <div class="product-details">
+                        <h3>Corsair Vengeance DDR5 32GB</h3>
+                        <p class="product-category">Memory (RAM)</p>
+                        <p class="product-desc">6000MHz, RGB Lighting, Dual Channel Kit (2x16GB)</p>
+                        <ul class="product-specs">
+                            <li>• Speed: 6000MHz</li>
+                            <li>• Latency: CL36</li>
+                            <li>• RGB: Yes</li>
+                        </ul>
+                        <div class="product-footer">
+                            <span class="product-price-large">₹47,199 </span>
+                            <form action="cart.html" method="get">
+                                <input type="hidden" name="product" value="Corsair DDR5 32GB">
+                                <input type="hidden" name="price" value="199">
+                                <button type="submit" class="btn btn-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card-full">
+                    <div class="product-image-full">
+                        <div class="placeholder-img-large">Motherboard</div>
+                    </div>
+                    <div class="product-details">
+                        <h3>ASUS ROG Strix B850-E</h3>
+                        <p class="product-category">Motherboard</p>
+                        <p class="product-desc">AMD AM5, PCIe 5.0, DDR5, WiFi 6E, RGB</p>
+                        <ul class="product-specs">
+                            <li>• Socket: AM5</li>
+                            <li>• Memory: DDR5 up to 6400MHz</li>
+                            <li>• WiFi: 6E</li>
+                        </ul>
+                        <div class="product-footer">
+                            <span class="product-price-large">₹47000</span>
+                            <form action="cart.html" method="get">
+                                <input type="hidden" name="product" value="ASUS ROG X670E">
+                                <input type="hidden" name="price" value="₹499">
+                                <button type="submit" class="btn btn-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card-full">
+                    <div class="product-image-full">
+                        <div class="product-badge new">New</div>
+                        <div class="placeholder-img-large">NVMe SSD</div>
+                    </div>
+                    <div class="product-details">
+                        <h3>Samsung 990 PRO 2TB</h3>
+                        <p class="product-category">Storage</p>
+                        <p class="product-desc">NVMe PCIe 4.0, 7450MB/s Read, 6900MB/s Write</p>
+                        <ul class="product-specs">
+                            <li>• Read: 7450 MB/s</li>
+                            <li>• Write: 6900 MB/s</li>
+                            <li>• Interface: PCIe 4.0</li>
+                        </ul>
+                        <div class="product-footer">
+                            <span class="product-price-large">₹12500</span>
+                            <form action="cart.html" method="get">
+                                <input type="hidden" name="product" value="Samsung 990 PRO 2TB">
+                                <input type="hidden" name="price" value="189">
+                                <button type="submit" class="btn btn-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!--product 5.1-->
+                <div class="product-card-full">
+                    <div class="product-image-full">
+                        <div class="product-badge new">New</div>
+                        <div class="placeholder-img-large">NVMe SSD</div>
+                    </div>
+                    <div class="product-details">
+                        <h3>Consistant 990 PRO 7TB</h3>
+                        <p class="product-category">Storage</p>
+                        <p class="product-desc">NVMe PCIe 4.0, 7450MB/s Read, 6900MB/s Write</p>
+                        <ul class="product-specs">
+                            <li>• Read: 7450 MB/s</li>
+                            <li>• Write: 6900 MB/s</li>
+                            <li>• Interface: PCIe 4.0</li>
+                        </ul>
+                        <div class="product-footer">
+                            <span class="product-price-large">₹37789</span>
+                            <form action="cart.html" method="get">
+                                <input type="hidden" name="product" value="consistant 990 PRO 7TB">
+                                <input type="hidden" name="price" value="189">
+                                <button type="submit" class="btn btn-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card-full">
+                    <div class="product-image-full">
+                        <div class="placeholder-img-large">PSU</div>
+                    </div>
+                    <div class="product-details">
+                        <h3>Corsair RM1000x 1000W</h3>
+                        <p class="product-category">Power Supply</p>
+                        <p class="product-desc">80+ Gold, Fully Modular, Silent Fan, 10 Year Warranty</p>
+                        <ul class="product-specs">
+                            <li>• Wattage: 1000W</li>
+                            <li>• Efficiency: 80+ Gold</li>
+                            <li>• Modular: Fully</li>
+                        </ul>
+                        <div class="product-footer">
+                            <span class="product-price-large"> ₹17900</span>
+                            <form action="cart.html" method="get">
+                                <input type="hidden" name="product" value="Corsair RM1000x">
+                                <input type="hidden" name="price" value="179">
+                                <button type="submit" class="btn btn-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>JASS TECHNOLOGIES</h4>
+                    <p>Your trusted source for premium computer hardware.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: support@JASS TECHNOLOGIES.com</p>
+                    <p>Phone: 1-800-JASS TECHNOLOGIES</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 JASS TECHNOLOGIES. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
